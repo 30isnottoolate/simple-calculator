@@ -6,8 +6,10 @@ class Calculator extends React.Component {
   render() {
     return (
       <div id="app">
-        <div id="formula" className="displays">123</div>
-        <div id="display" className="displays">123</div>
+        <div id="displays">
+          <div id="formula" className="displays">123</div>
+          <div id="display" className="displays">123</div>
+        </div>
         <div id="buttons">
           <button id="zero" className="blues">0</button>
           <button id="one" className="blues">1</button>
