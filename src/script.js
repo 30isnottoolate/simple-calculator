@@ -107,6 +107,50 @@ class Calculator extends React.Component {
   }
 
   handleOperator(event) {
+    this.setState((prevState) => {
+      if (prevState.mode == "default" || prevState.mode == "add") {
+        return {
+          formula: prevState.formula + prevState.display + event.target.innerText,
+          prevIn: event.target.id,
+          mode: "new",
+          isFloat: false
+        }
+      } else if (prevState.mode == "new") {
+        if (prevState.formula.substr(-2, 1) != "+" && prevState.formula.substr(-2, 1) != "*" &&
+        prevState.formula.substr(-2, 1) != "/") {
+          if (event.target.id != "subtract") {
+            return {
+              formula: prevState.formula.slice(0, -1) + event.target.innerText,
+              prevIn: event.target.id
+            }
+          } else if (event.target.id == "subtract" && prevState.prevIn != "subtract") {
+            return {
+              formula: prevState.formula + event.target.innerText,
+              prevIn: event.target.id
+            }
+          } else if (event.target.id == "subtract" && prevState.prevIn == "subtract") {
+            return {
+              formula: prevState.formula.slice(0, -1) + "+",
+              prevIn: "add"
+            }
+          }
+        } else if (prevState.formula.substr(-2, 1) == "+" || prevState.formula.substr(-2, 1) == "*" ||
+        prevState.formula.substr(-2, 1) == "/") {
+          if (event.target.id != "subtract") {
+            return {
+              formula: prevState.formula.slice(0, -2) + event.target.innerText,
+              prevIn: event.target.id
+            }
+          }
+        }
+      } else if (prevState.mode == "eval") {
+        return {
+          formula: prevState.display + event.target.innerText,
+          prevIn: event.target.id,
+          mode: "new"
+        }
+      }
+    });
   }
   
   handleEquals() {
