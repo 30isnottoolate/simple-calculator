@@ -21,53 +21,54 @@ body {
 
 #app {
   display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 15% 15% 70%;
+  gap: 10px;
+  grid-template-rows: 74px auto;
   background-color: #67CBAB;
-  height: 380px;
-  width: 238px;
+  height: 400px;
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #000000;
+}
+
+#displays {
+  grid-row: 1 / 2;
+  background-color: #C3EB78;
+  height: 74px;
+  width: 228px;
   border: 1px solid #000000;
 }
 
 .displays {
-  background-color: #C3EB78;
+  display: flex;
+  flex-direction: row-reverse;
   text-align: right;
   font-family: "Digital";
   white-space: nowrap;
-  border: 1px solid #000000;
-  height: 40px;
+  padding: 8px 5px;
 }
 
 #formula {
-  grid-row: 1 / 2;
-  display: flex;
   font-size: 18px;
-  padding: 9px 5px 0px 10px;
+  height: 38px;
 }
 
 #display {
-  grid-row: 2 / 3;
   font-size: 22px;
+  height: 36px;
 }
 
 #buttons {
-  grid-row: 3 / 4;
+  grid-row: 2 / 3;
   display: grid;
-  gap: 2px 5px;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  gap: 5px;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(5, auto);
 }
 
 button {
   font-family: monospace;
   font-size: 16px;
-  height: 50px;
   border: 1px solid #000000;
-  margin: 0px;
-}
-
-.big-butt {
-  height: 105px;
 }
 
 .blues {
