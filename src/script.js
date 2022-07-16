@@ -79,6 +79,31 @@ class Calculator extends React.Component {
   }
   
   handleDecimal() {
+    this.setState((prevState) => {
+      if (prevState.mode == "default" || prevState.mode == "new") {
+        return {
+          display: "0.",
+          prevIn: "decimal",
+          mode: "add",
+          isFloat: true
+        }
+      } else if (prevState.mode == "add" && !prevState.isFloat && 
+      prevState.display.length < 19) {
+        return {
+          display: prevState.display + ".",
+          prevIn: "decimal",
+          isFloat: true
+        }
+      } else if (prevState.mode == "eval") {
+        return {
+          formula: "",
+          display: "0.",
+          prevIn: "decimal",
+          mode: "add",
+          isFloat: true
+        }
+      }
+    });
   }
 
   handleOperator(event) {
