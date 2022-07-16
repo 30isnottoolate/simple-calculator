@@ -21,9 +21,61 @@ class Calculator extends React.Component {
   }
   
   handleClear() {
+    this.setState({
+      formula: "",
+      display: "0",
+      prevIn: "",
+      mode: "default",
+      isFloat: false
+    });
   }
   
   handleNumber(event) {
+    this.setState((prevState) => {
+      if (event.target.innerText != "0") {
+        if (prevState.mode == "default" || prevState.mode == "new") {
+          return {
+            display: event.target.innerText,
+            prevIn: event.target.id,
+            mode: "add"
+          }
+        } else if (prevState.mode == "eval") {
+          return {
+            formula: "",
+            display: event.target.innerText,
+            prevIn: event.target.id,
+            mode: "add"
+          }
+        } else if (prevState.mode == "add" && prevState.display.length < 20) {
+          return {
+            display: prevState.display + event.target.innerText,
+            prevIn: event.target.id,
+            mode: "add"
+          }
+        }
+      } else {
+        if (prevState.mode == "new") {
+          return {
+            display: event.target.innerText,
+            prevIn: event.target.id,
+            mode: "default"
+          }
+        } else if (prevState.mode == "eval") {
+          return {
+            formula: "",
+            display: event.target.innerText,
+            prevIn: event.target.id,
+            mode: "default"
+          }
+        } else if (prevState.mode == "add" && prevState.display.length < 20) {
+          return {
+            display: prevState.display + event.target.innerText,
+            prevIn: event.target.id,
+            mode: "add"
+          }
+        }
+      }
+    });
   }
   
   handleDecimal() {
