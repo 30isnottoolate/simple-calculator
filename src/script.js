@@ -154,6 +154,37 @@ class Calculator extends React.Component {
   }
   
   handleEquals() {
+    this.setState((prevState) => {
+      if (prevState.mode == "default" || prevState.mode == "add") {
+        return {
+          formula: prevState.formula + prevState.display + "=",
+          display: eval(prevState.formula + prevState.display),
+          prevIn: "equals",
+          mode: "eval",
+          isFloat: false
+        }
+      } else if (prevState.mode == "new") {
+        if (prevState.formula.substr(-2, 1) != "+" && prevState.formula.substr(-2, 1) != "*" &&
+        prevState.formula.substr(-2, 1) != "/") {
+          return {
+            formula: prevState.formula.slice(0, -1) + "=",
+            display: eval(prevState.formula.slice(0, -1)),
+            prevIn: "equals",
+            mode: "eval",
+            isFloat: false
+          }
+        } else if (prevState.formula.substr(-2, 1) == "+" || prevState.formula.substr(-2, 1) == "*" ||
+        prevState.formula.substr(-2, 1) == "/") {
+          return {
+            formula: prevState.formula.slice(0, -2) + "=",
+            display: eval(prevState.formula.slice(0, -2)),
+            prevIn: "equals",
+            mode: "eval",
+            isFloat: false
+          }
+        }
+      }
+    })
   }
 
   render() {
