@@ -32,21 +32,21 @@ class Calculator extends React.Component {
   
   handleNumber(event) {
     this.setState((prevState) => {
-      if (event.target.innerText != "0") {
-        if (prevState.mode == "default" || prevState.mode == "new") {
+      if (event.target.innerText !== "0") {
+        if (prevState.mode === "default" || prevState.mode === "new") {
           return {
             display: event.target.innerText,
             prevIn: event.target.id,
             mode: "add"
           }
-        } else if (prevState.mode == "eval") {
+        } else if (prevState.mode === "eval") {
           return {
             formula: "",
             display: event.target.innerText,
             prevIn: event.target.id,
             mode: "add"
           }
-        } else if (prevState.mode == "add" && prevState.display.length < 20) {
+        } else if (prevState.mode === "add" && prevState.display.length < 20) {
           return {
             display: prevState.display + event.target.innerText,
             prevIn: event.target.id,
@@ -54,20 +54,20 @@ class Calculator extends React.Component {
           }
         }
       } else {
-        if (prevState.mode == "new") {
+        if (prevState.mode === "new") {
           return {
             display: event.target.innerText,
             prevIn: event.target.id,
             mode: "default"
           }
-        } else if (prevState.mode == "eval") {
+        } else if (prevState.mode === "eval") {
           return {
             formula: "",
             display: event.target.innerText,
             prevIn: event.target.id,
             mode: "default"
           }
-        } else if (prevState.mode == "add" && prevState.display.length < 20) {
+        } else if (prevState.mode === "add" && prevState.display.length < 20) {
           return {
             display: prevState.display + event.target.innerText,
             prevIn: event.target.id,
@@ -80,21 +80,21 @@ class Calculator extends React.Component {
   
   handleDecimal() {
     this.setState((prevState) => {
-      if (prevState.mode == "default" || prevState.mode == "new") {
+      if (prevState.mode === "default" || prevState.mode === "new") {
         return {
           display: "0.",
           prevIn: "decimal",
           mode: "add",
           isFloat: true
         }
-      } else if (prevState.mode == "add" && !prevState.isFloat && 
+      } else if (prevState.mode === "add" && !prevState.isFloat && 
       prevState.display.length < 19) {
         return {
           display: prevState.display + ".",
           prevIn: "decimal",
           isFloat: true
         }
-      } else if (prevState.mode == "eval") {
+      } else if (prevState.mode === "eval") {
         return {
           formula: "",
           display: "0.",
@@ -108,42 +108,42 @@ class Calculator extends React.Component {
 
   handleOperator(event) {
     this.setState((prevState) => {
-      if (prevState.mode == "default" || prevState.mode == "add") {
+      if (prevState.mode === "default" || prevState.mode === "add") {
         return {
           formula: prevState.formula + prevState.display + event.target.innerText,
           prevIn: event.target.id,
           mode: "new",
           isFloat: false
         }
-      } else if (prevState.mode == "new") {
-        if (prevState.formula.substr(-2, 1) != "+" && prevState.formula.substr(-2, 1) != "*" &&
-        prevState.formula.substr(-2, 1) != "/") {
-          if (event.target.id != "subtract") {
+      } else if (prevState.mode === "new") {
+        if (prevState.formula.substr(-2, 1) !== "+" && prevState.formula.substr(-2, 1) !== "*" &&
+        prevState.formula.substr(-2, 1) !== "/") {
+          if (event.target.id !== "subtract") {
             return {
               formula: prevState.formula.slice(0, -1) + event.target.innerText,
               prevIn: event.target.id
             }
-          } else if (event.target.id == "subtract" && prevState.prevIn != "subtract") {
+          } else if (event.target.id === "subtract" && prevState.prevIn !== "subtract") {
             return {
               formula: prevState.formula + event.target.innerText,
               prevIn: event.target.id
             }
-          } else if (event.target.id == "subtract" && prevState.prevIn == "subtract") {
+          } else if (event.target.id === "subtract" && prevState.prevIn === "subtract") {
             return {
               formula: prevState.formula.slice(0, -1) + "+",
               prevIn: "add"
             }
           }
-        } else if (prevState.formula.substr(-2, 1) == "+" || prevState.formula.substr(-2, 1) == "*" ||
-        prevState.formula.substr(-2, 1) == "/") {
-          if (event.target.id != "subtract") {
+        } else if (prevState.formula.substr(-2, 1) === "+" || prevState.formula.substr(-2, 1) === "*" ||
+        prevState.formula.substr(-2, 1) === "/") {
+          if (event.target.id !== "subtract") {
             return {
               formula: prevState.formula.slice(0, -2) + event.target.innerText,
               prevIn: event.target.id
             }
           }
         }
-      } else if (prevState.mode == "eval") {
+      } else if (prevState.mode === "eval") {
         return {
           formula: prevState.display + event.target.innerText,
           prevIn: event.target.id,
@@ -155,7 +155,7 @@ class Calculator extends React.Component {
   
   handleEquals() {
     this.setState((prevState) => {
-      if (prevState.mode == "default" || prevState.mode == "add") {
+      if (prevState.mode === "default" || prevState.mode === "add") {
         return {
           formula: prevState.formula + prevState.display + "=",
           display: eval(prevState.formula + prevState.display),
@@ -163,9 +163,9 @@ class Calculator extends React.Component {
           mode: "eval",
           isFloat: false
         }
-      } else if (prevState.mode == "new") {
-        if (prevState.formula.substr(-2, 1) != "+" && prevState.formula.substr(-2, 1) != "*" &&
-        prevState.formula.substr(-2, 1) != "/") {
+      } else if (prevState.mode === "new") {
+        if (prevState.formula.substr(-2, 1) !== "+" && prevState.formula.substr(-2, 1) !== "*" &&
+        prevState.formula.substr(-2, 1) !== "/") {
           return {
             formula: prevState.formula.slice(0, -1) + "=",
             display: eval(prevState.formula.slice(0, -1)),
@@ -173,8 +173,8 @@ class Calculator extends React.Component {
             mode: "eval",
             isFloat: false
           }
-        } else if (prevState.formula.substr(-2, 1) == "+" || prevState.formula.substr(-2, 1) == "*" ||
-        prevState.formula.substr(-2, 1) == "/") {
+        } else if (prevState.formula.substr(-2, 1) === "+" || prevState.formula.substr(-2, 1) === "*" ||
+        prevState.formula.substr(-2, 1) === "/") {
           return {
             formula: prevState.formula.slice(0, -2) + "=",
             display: eval(prevState.formula.slice(0, -2)),
