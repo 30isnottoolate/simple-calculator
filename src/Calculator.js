@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './app_styles.css';
+import './Calculator.css';
 
 class Calculator extends React.Component {
   constructor(props) {
@@ -218,5 +217,4 @@ class Calculator extends React.Component {
   }
 }
 
-const container = ReactDOM.createRoot(document.getElementById('app-container'));
-container.render(<Calculator/>);
+export default Calculator;
